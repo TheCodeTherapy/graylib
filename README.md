@@ -120,4 +120,4 @@ basic_window: Mach-O 64-bit arm64 executable, flags:<NOUNDEFS|DYLDLINK|TWOLEVEL|
 
 ### License
 
-graylib is licensed under an unmodified zlib/libpng license. View [LICENSE](https://github.com/TheCodeTherapy/graylib/blob/master/LICENSE).
+graylib is licensed under an unmodified zlib/libpng license. View [LICENSE](https://github.com/TheCodeTherapy/graylib/blob/main/LICENSE).
