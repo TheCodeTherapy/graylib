@@ -1,11 +1,15 @@
 // Package easings - Useful easing functions for values animation
-//
-// A port of Robert Penner's easing equations (http://robertpenner.com/easing/)
 package easings
 
 import (
 	"math"
 )
+
+const PI = math.Pi
+
+type Float interface {
+	~float32 | ~float64
+}
 
 // Linear Easing functions
 
@@ -316,4 +320,52 @@ func ElasticInOut(t, b, c, d float32) float32 {
 	t = t - 1
 	postFix := a * float32(math.Pow(2, -10*(float64(t))))
 	return postFix*float32(math.Sin(float64(t*d-s)*(2*math.Pi)/float64(p)))*0.5 + c + b
+}
+
+func EaseInOutSine[T Float](t T) T {
+	return -T((math.Cos(PI*float64(t)) - 1) / 2)
+}
+
+func EaseInOutQuad[T Float](t T) T {
+	if t < 0.5 {
+		return T(2 * t * t)
+	} else {
+		return T(1 - math.Pow(-2*float64(t)+2, 2)/2)
+	}
+}
+
+func EaseInOutQuart[T Float](t T) T {
+	if t < 0.5 {
+		return T(8 * t * t * t * t)
+	} else {
+		return T(1 - math.Pow(-2*float64(t)+2, 4)/2)
+	}
+}
+
+func EaseInOutQuint[T Float](t T) T {
+	if t < 0.5 {
+		return T(16 * t * t * t * t * t)
+	} else {
+		return T(1 - math.Pow(-2*float64(t)+2, 5)/2)
+	}
+}
+
+func EaseInOutCirc[T Float](t T) T {
+	if t < 0.5 {
+		return T((1 - math.Sqrt(1-math.Pow(2*float64(t), 2))) / 2)
+	} else {
+		return T((math.Sqrt(1-math.Pow(-2*float64(t)+2, 2)) + 1) / 2)
+	}
+}
+
+func EaseInOutExpo[T Float](t T) T {
+	if t == 0 {
+		return 0
+	} else if t == 1 {
+		return 1
+	} else if t < 0.5 {
+		return T(math.Pow(2, 20*float64(t-10)) / 2)
+	} else {
+		return T((2 - math.Pow(2, -20*float64(t+10))/2))
+	}
 }
