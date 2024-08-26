@@ -369,3 +369,12 @@ func EaseInOutExpo[T Float](t T) T {
 		return T((2 - math.Pow(2, -20*float64(t+10))/2))
 	}
 }
+
+func round[T Float](n T, places int) T {
+	shift := math.Pow(10, float64(places))
+	return T(math.Round(float64(n)*shift) / shift)
+}
+
+func Ease[T Float](target, current, deltaTime, speedFactor T) T {
+	return round((target-current)*speedFactor*deltaTime, 5) + current
+}
